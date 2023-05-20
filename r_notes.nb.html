@@ -1775,18 +1775,18 @@ hist(simulation)</code></pre>
 <h1>Calculate Joint PDF (a Double Integral)</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2V4YW1wbGU6IGNhbGN1bGF0aW5nIHRoZSBKb2ludCBQREYgd2hlcmUgZih4LHkpID0gMS8yeCwgMCA8PSB4IDw9MiwgMCA8PSB5IDw9IHhcbiMgc2V0IHVwIGYoeClcbklubmVyRiA8LSBmdW5jdGlvbih4KSB7IDEvMiAqIHggfVxuIyBPdXRlciBpbnRlZ3JhbCBib3VuZHNcbnUgPC0gMiAjdXBwZXJcbmwgPC0gMCAjbG93ZXJcblxuIyBDYWxjdWxhdGUgZnJvbSBsb3dlciBib3VuZCB0byB4XG5Jbm5lckludGVncmFsIDwtIFZlY3Rvcml6ZShmdW5jdGlvbih5KSB7IGludGVncmF0ZShJbm5lckYsIGwsIHkpJHZhbHVlfSlcbiNTdWJcbmludGVncmF0ZShJbm5lckludGVncmFsLCBsLCB1KVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2V4YW1wbGU6IGNhbGN1bGF0aW5nIHRoZSBKb2ludCBQREYgd2hlcmUgZih4LHkpID0gMS8yeCwgMCA8PSB4IDw9MiwgMCA8PSB5IDw9IHhcbiMgc2V0IHVwIGYoeClcbmlubmVyX2YgPC0gZnVuY3Rpb24oeCkgeyAxLzIgKiB4IH1cbiMgT3V0ZXIgaW50ZWdyYWwgYm91bmRzXG51IDwtIDIgI3VwcGVyXG5sIDwtIDAgI2xvd2VyXG5cbiMgQ2FsY3VsYXRlIGZyb20gbG93ZXIgYm91bmQgdG8geFxuaW5uZXJfaW50ZWdyYWwgPC0gVmVjdG9yaXplKGZ1bmN0aW9uKHkpIHsgaW50ZWdyYXRlKGlubmVyX2YsIGwsIHkpJHZhbHVlfSlcbiNTdWJcbmludGVncmF0ZShpbm5lcl9pbnRlZ3JhbCwgbCwgdSlcbmBgYCJ9 -->
 <pre class="r"><code>#example: calculating the Joint PDF where f(x,y) = 1/2x, 0 &lt;= x &lt;=2, 0 &lt;= y &lt;= x
 # set up f(x)
-InnerF &lt;- function(x) { 1/2 * x }
+inner_f &lt;- function(x) { 1/2 * x }
 # Outer integral bounds
 u &lt;- 2 #upper
 l &lt;- 0 #lower
 
 # Calculate from lower bound to x
-InnerIntegral &lt;- Vectorize(function(y) { integrate(InnerF, l, y)$value})
+inner_integral &lt;- Vectorize(function(y) { integrate(inner_f, l, y)$value})
 #Sub
-integrate(InnerIntegral, l, u)</code></pre>
+integrate(inner_integral, l, u)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiMC42NjY2NjY3IHdpdGggYWJzb2x1dGUgZXJyb3IgPCA3LjRlLTE1XG4ifQ== -->
 <pre><code>0.6666667 with absolute error &lt; 7.4e-15</code></pre>
@@ -1798,13 +1798,13 @@ integrate(InnerIntegral, l, u)</code></pre>
 <h1>Marginal PDF of X given Y</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXQgdXAgZih4LHkpXG5Gb2ZYIDwtIGZ1bmN0aW9uKHgpIHsgMS8yICogeCB9XG5sIDwtIDBcbnUgPC0gMlxuICBcbmludGVncmF0ZShGb2ZYLCBsLCB1KVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXQgdXAgZih4LHkpXG5mX3ggPC0gZnVuY3Rpb24oeCkgeyAxLzIgKiB4IH1cbmwgPC0gMFxudSA8LSAyXG4gIFxuaW50ZWdyYXRlKGZfeCwgbCwgdSlcbmBgYCJ9 -->
 <pre class="r"><code># set up f(x,y)
-FofX &lt;- function(x) { 1/2 * x }
+f_x &lt;- function(x) { 1/2 * x }
 l &lt;- 0
 u &lt;- 2
   
-integrate(FofX, l, u)</code></pre>
+integrate(f_x, l, u)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiMSB3aXRoIGFic29sdXRlIGVycm9yIDwgMS4xZS0xNFxuIn0= -->
 <pre><code>1 with absolute error &lt; 1.1e-14</code></pre>
@@ -1816,14 +1816,14 @@ integrate(FofX, l, u)</code></pre>
 <h1>Conditional Probability Density (CDF) of X conditional on Y</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXQgdXAgZih4LHkpXG5Gb2ZYIDwtIDAuMTJcbiNJbnB1dCBtYXJnaW5hbCBwZGYgb2YgWVxuTXBkZlkgPC0gMC4yOFxuXG4jY2FsY3VsYXRlIGYoeCx5KS9meCh4KVxuRm9mWC9NcGRmWVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXQgdXAgZih4LHkpXG5mX3ggPC0gMC4xMlxuI0lucHV0IG1hcmdpbmFsIHBkZiBvZiBZXG5tX3BkZl95IDwtIDAuMjhcblxuI2NhbGN1bGF0ZSBmKHgseSkvZngoeClcbmZfeC9tX3BkZl95XG5gYGAifQ== -->
 <pre class="r"><code># set up f(x,y)
-FofX &lt;- 0.12
+f_x &lt;- 0.12
 #Input marginal pdf of Y
-MpdfY &lt;- 0.28
+m_pdf_y &lt;- 0.28
 
 #calculate f(x,y)/fx(x)
-FofX/MpdfY</code></pre>
+f_x/m_pdf_y</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNDI4NTcxNFxuIn0= -->
 <pre><code>[1] 0.4285714</code></pre>
@@ -1831,7 +1831,7 @@ FofX/MpdfY</code></pre>
 <!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZXMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIFJlcGxpY2F0ZSBybm9ybQ0KDQpgYGB7cn0NCg0Kc2ltdWxhdGlvbiA8LSByZXBsaWNhdGUoDQogIG4gPSAxMCwNCiAgZXhwciA9IHJub3JtKG4gPSAxLCBtZWFuID0gMiwgc2QgPSAxKQ0KKQ0KDQpoaXN0KHNpbXVsYXRpb24pDQpgYGANCg0KIyBDYWxjdWxhdGUgSm9pbnQgUERGIChhIERvdWJsZSBJbnRlZ3JhbCkNCg0KYGBge3J9DQojZXhhbXBsZTogY2FsY3VsYXRpbmcgdGhlIEpvaW50IFBERiB3aGVyZSBmKHgseSkgPSAxLzJ4LCAwIDw9IHggPD0yLCAwIDw9IHkgPD0geA0KIyBzZXQgdXAgZih4KQ0KSW5uZXJGIDwtIGZ1bmN0aW9uKHgpIHsgMS8yICogeCB9DQojIE91dGVyIGludGVncmFsIGJvdW5kcw0KdSA8LSAyICN1cHBlcg0KbCA8LSAwICNsb3dlcg0KDQojIENhbGN1bGF0ZSBmcm9tIGxvd2VyIGJvdW5kIHRvIHgNCklubmVySW50ZWdyYWwgPC0gVmVjdG9yaXplKGZ1bmN0aW9uKHkpIHsgaW50ZWdyYXRlKElubmVyRiwgbCwgeSkkdmFsdWV9KQ0KI1N1Yg0KaW50ZWdyYXRlKElubmVySW50ZWdyYWwsIGwsIHUpDQpgYGANCg0KIyBNYXJnaW5hbCBQREYgb2YgWCBnaXZlbiBZDQoNCmBgYHtyfQ0KIyBzZXQgdXAgZih4LHkpDQpGb2ZYIDwtIGZ1bmN0aW9uKHgpIHsgMS8yICogeCB9DQpsIDwtIDANCnUgPC0gMg0KICANCmludGVncmF0ZShGb2ZYLCBsLCB1KQ0KDQpgYGANCiMgQ29uZGl0aW9uYWwgUHJvYmFiaWxpdHkgRGVuc2l0eSAoQ0RGKSBvZiBYIGNvbmRpdGlvbmFsIG9uIFkNCg0KYGBge3J9DQojIHNldCB1cCBmKHgseSkNCkZvZlggPC0gMC4xMg0KI0lucHV0IG1hcmdpbmFsIHBkZiBvZiBZDQpNcGRmWSA8LSAwLjI4DQoNCiNjYWxjdWxhdGUgZih4LHkpL2Z4KHgpDQpGb2ZYL01wZGZZDQoNCmBgYA==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZXMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIFJlcGxpY2F0ZSBybm9ybQ0KDQpgYGB7cn0NCg0Kc2ltdWxhdGlvbiA8LSByZXBsaWNhdGUoDQogIG4gPSAxMCwNCiAgZXhwciA9IHJub3JtKG4gPSAxLCBtZWFuID0gMiwgc2QgPSAxKQ0KKQ0KDQpoaXN0KHNpbXVsYXRpb24pDQpgYGANCg0KIyBDYWxjdWxhdGUgSm9pbnQgUERGIChhIERvdWJsZSBJbnRlZ3JhbCkNCg0KYGBge3J9DQojZXhhbXBsZTogY2FsY3VsYXRpbmcgdGhlIEpvaW50IFBERiB3aGVyZSBmKHgseSkgPSAxLzJ4LCAwIDw9IHggPD0yLCAwIDw9IHkgPD0geA0KIyBzZXQgdXAgZih4KQ0KaW5uZXJfZiA8LSBmdW5jdGlvbih4KSB7IDEvMiAqIHggfQ0KIyBPdXRlciBpbnRlZ3JhbCBib3VuZHMNCnUgPC0gMiAjdXBwZXINCmwgPC0gMCAjbG93ZXINCg0KIyBDYWxjdWxhdGUgZnJvbSBsb3dlciBib3VuZCB0byB4DQppbm5lcl9pbnRlZ3JhbCA8LSBWZWN0b3JpemUoZnVuY3Rpb24oeSkgeyBpbnRlZ3JhdGUoaW5uZXJfZiwgbCwgeSkkdmFsdWV9KQ0KI1N1Yg0KaW50ZWdyYXRlKGlubmVyX2ludGVncmFsLCBsLCB1KQ0KYGBgDQoNCiMgTWFyZ2luYWwgUERGIG9mIFggZ2l2ZW4gWQ0KDQpgYGB7cn0NCiMgc2V0IHVwIGYoeCx5KQ0KZl94IDwtIGZ1bmN0aW9uKHgpIHsgMS8yICogeCB9DQpsIDwtIDANCnUgPC0gMg0KICANCmludGVncmF0ZShmX3gsIGwsIHUpDQoNCmBgYA0KIyBDb25kaXRpb25hbCBQcm9iYWJpbGl0eSBEZW5zaXR5IChDREYpIG9mIFggY29uZGl0aW9uYWwgb24gWQ0KDQpgYGB7cn0NCiMgc2V0IHVwIGYoeCx5KQ0KZl94IDwtIDAuMTINCiNJbnB1dCBtYXJnaW5hbCBwZGYgb2YgWQ0KbV9wZGZfeSA8LSAwLjI4DQoNCiNjYWxjdWxhdGUgZih4LHkpL2Z4KHgpDQpmX3gvbV9wZGZfeQ0KDQpgYGA=</div>
 
 
 

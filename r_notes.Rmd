@@ -20,37 +20,37 @@ hist(simulation)
 ```{r}
 #example: calculating the Joint PDF where f(x,y) = 1/2x, 0 <= x <=2, 0 <= y <= x
 # set up f(x)
-InnerF <- function(x) { 1/2 * x }
+inner_f <- function(x) { 1/2 * x }
 # Outer integral bounds
 u <- 2 #upper
 l <- 0 #lower
 
 # Calculate from lower bound to x
-InnerIntegral <- Vectorize(function(y) { integrate(InnerF, l, y)$value})
+inner_integral <- Vectorize(function(y) { integrate(inner_f, l, y)$value})
 #Sub
-integrate(InnerIntegral, l, u)
+integrate(inner_integral, l, u)
 ```
 
 # Marginal PDF of X given Y
 
 ```{r}
 # set up f(x,y)
-FofX <- function(x) { 1/2 * x }
+f_x <- function(x) { 1/2 * x }
 l <- 0
 u <- 2
   
-integrate(FofX, l, u)
+integrate(f_x, l, u)
 
 ```
 # Conditional Probability Density (CDF) of X conditional on Y
 
 ```{r}
 # set up f(x,y)
-FofX <- 0.12
+f_x <- 0.12
 #Input marginal pdf of Y
-MpdfY <- 0.28
+m_pdf_y <- 0.28
 
 #calculate f(x,y)/fx(x)
-FofX/MpdfY
+f_x/m_pdf_y
 
 ```
