@@ -1,0 +1,56 @@
+---
+title: "R Notes"
+output: html_notebook
+---
+
+# Replicate rnorm
+
+```{r}
+
+simulation <- replicate(
+  n = 10,
+  expr = rnorm(n = 1, mean = 2, sd = 1)
+)
+
+hist(simulation)
+```
+
+# Calculate Joint PDF (a Double Integral)
+
+```{r}
+#example: calculating the Joint PDF where f(x,y) = 1/2x, 0 <= x <=2, 0 <= y <= x
+# set up f(x)
+InnerF <- function(x) { 1/2 * x }
+# Outer integral bounds
+u <- 2 #upper
+l <- 0 #lower
+
+# Calculate from lower bound to x
+InnerIntegral <- Vectorize(function(y) { integrate(InnerF, l, y)$value})
+#Sub
+integrate(InnerIntegral, l, u)
+```
+
+# Marginal PDF of X given Y
+
+```{r}
+# set up f(x,y)
+FofX <- function(x) { 1/2 * x }
+l <- 0
+u <- 2
+  
+integrate(FofX, l, u)
+
+```
+# Conditional Probability Density (CDF) of X conditional on Y
+
+```{r}
+# set up f(x,y)
+FofX <- 0.12
+#Input marginal pdf of Y
+MpdfY <- 0.28
+
+#calculate f(x,y)/fx(x)
+FofX/MpdfY
+
+```
